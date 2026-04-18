@@ -6,92 +6,102 @@
 <title>Prescrição UPA – Aparecida</title>
 <style>
   :root {
-    --bg: #f5f5f3;
-    --card: #ffffff;
-    --border: #e0ddd8;
-    --text: #1a1a1a;
-    --muted: #6b6b6b;
-    --accent: #1a6b3c;
-    --accent-light: #e8f5ee;
-    --danger: #c0392b;
-    --radius: 8px;
+    --bg:#f5f5f3;--card:#fff;--border:#e0ddd8;--text:#1a1a1a;--muted:#6b6b6b;
+    --accent:#1a6b3c;--accent-light:#e8f5ee;--danger:#c0392b;--danger-light:#fdf0ef;
+    --radius:8px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-         background: var(--bg); color: var(--text); font-size: 14px; }
-  header {
-    background: var(--card);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 24px;
-    display: flex; align-items: center; gap: 16px;
-    position: sticky; top: 0; z-index: 100;
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+  header{background:var(--card);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+  header img{height:36px}
+  header h1{font-size:15px;font-weight:600}
+  header span{font-size:12px;color:var(--muted)}
+  .container{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+  .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap}
+  .tab{padding:9px 18px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .tab:hover:not(.active){color:var(--text)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+  .sec{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:20px 0 10px;padding-top:16px;border-top:1px solid var(--border)}
+  .sec:first-of-type{border-top:none;padding-top:0;margin-top:0}
+  .row{display:grid;gap:10px;margin-bottom:10px}
+  .c2{grid-template-columns:1fr 1fr}
+  .field label{font-size:12px;color:var(--muted);display:block;margin-bottom:4px;font-weight:500}
+  .field input,.field select,.field textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;font-family:inherit;background:#fafaf9;color:var(--text);transition:border .15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+  .field textarea{resize:vertical;line-height:1.5;min-height:64px}
+  .med-row{display:grid;grid-template-columns:minmax(0,3fr) 80px minmax(0,1.5fr) 120px 32px;gap:8px;align-items:end;margin-bottom:8px}
+  .med-row .field label{font-size:11px}
+  .rm-btn{height:36px;width:32px;background:transparent;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;color:var(--muted);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .rm-btn:hover{border-color:var(--danger);color:var(--danger)}
+  .add-med{width:100%;padding:8px;font-size:12px;background:transparent;border:1px dashed var(--border);border-radius:var(--radius);cursor:pointer;color:var(--muted);margin-bottom:12px;transition:all .15s}
+  .add-med:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+  .fixo-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+  .fixo-item:last-child{border-bottom:none}
+  .fixo-item input[type=checkbox]{width:15px;height:15px;flex-shrink:0;accent-color:var(--accent);cursor:pointer}
+  .fixo-item span{font-size:12px;color:var(--muted);flex:1}
+  .del-fixo{background:transparent;border:none;cursor:pointer;color:var(--muted);font-size:15px;padding:2px 6px;border-radius:4px;flex-shrink:0}
+  .del-fixo:hover{color:var(--danger);background:var(--danger-light)}
+  .add-fixo-row{display:grid;grid-template-columns:minmax(0,3fr) 80px minmax(0,1.4fr) 120px auto;gap:8px;align-items:end;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)}
+  .add-fixo-row .field label{font-size:11px}
+  .btn-add-fixo{padding:0 14px;font-size:12px;font-weight:600;height:36px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:var(--radius);cursor:pointer;white-space:nowrap}
+  .btn-add-fixo:hover{background:var(--accent);color:#fff}
+  /* Exames laboratoriais */
+  .lab-group{margin-bottom:16px}
+  .lab-group-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;text-transform:uppercase}
+  .lab-row{display:grid;grid-template-columns:140px repeat(5,1fr);gap:6px;align-items:center;margin-bottom:5px}
+  .lab-row label{font-size:12px;color:var(--muted);font-weight:500}
+  .lab-row input{padding:5px 8px;border:1px solid var(--border);border-radius:var(--radius);font-size:12px;background:#fafaf9;color:var(--text)}
+  .lab-row input:focus{outline:none;border-color:var(--accent);background:#fff}
+  .lab-date-row{display:grid;grid-template-columns:140px repeat(5,1fr);gap:6px;margin-bottom:8px}
+  .lab-date-row span{font-size:11px;color:var(--muted);font-weight:600;text-align:center}
+  .lab-date-row input{padding:4px 6px;border:1px solid var(--border);border-radius:var(--radius);font-size:11px;text-align:center;background:#fafaf9}
+  /* Footer */
+  .footer-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:12px 24px;display:flex;justify-content:flex-end;gap:10px;z-index:100}
+  .btn-clear{padding:9px 18px;font-size:13px;background:transparent;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer}
+  .btn-clear:hover{background:var(--bg)}
+  .btn-print{padding:9px 24px;font-size:13px;font-weight:600;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);cursor:pointer}
+  .btn-print:hover{opacity:.88}
+  .toast{position:fixed;top:20px;right:20px;background:#222;color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+  .toast.show{opacity:1}
+
+  /* ===== PRINT ===== */
+  #print-area{display:none}
+  @media print{
+    body>*:not(#print-area){display:none!important}
+    #print-area{display:block!important;position:static}
+    @page{margin:1cm;size:A4}
   }
-  header img { height: 36px; }
-  header h1 { font-size: 15px; font-weight: 600; color: var(--text); }
-  header span { font-size: 12px; color: var(--muted); }
-  .container { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
-  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-  .tab { padding: 9px 20px; font-size: 13px; font-weight: 500; border: none;
-         background: transparent; cursor: pointer; color: var(--muted);
-         border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .tab:hover:not(.active) { color: var(--text); }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-          padding: 20px; margin-bottom: 16px; }
-  .sec { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase;
-         letter-spacing: .07em; margin: 20px 0 10px; padding-top: 16px;
-         border-top: 1px solid var(--border); }
-  .sec:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
-  .row { display: grid; gap: 10px; margin-bottom: 10px; }
-  .c2 { grid-template-columns: 1fr 1fr; }
-  .c3 { grid-template-columns: 1fr 1fr 1fr; }
-  .field label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; font-weight: 500; }
-  .field input, .field select, .field textarea {
-    width: 100%; padding: 8px 10px; border: 1px solid var(--border);
-    border-radius: var(--radius); font-size: 13px; font-family: inherit;
-    background: #fafaf9; color: var(--text); transition: border .15s;
-  }
-  .field input:focus, .field select:focus, .field textarea:focus {
-    outline: none; border-color: var(--accent); background: #fff;
-  }
-  .field textarea { resize: vertical; line-height: 1.5; min-height: 64px; }
-  .med-row { display: grid; grid-template-columns: minmax(0,3fr) 80px minmax(0,1.5fr) 90px 32px;
-             gap: 8px; align-items: end; margin-bottom: 8px; }
-  .med-row .field label { font-size: 11px; }
-  .rm-btn { height: 36px; width: 32px; background: transparent; border: 1px solid var(--border);
-            border-radius: var(--radius); cursor: pointer; color: var(--muted); font-size: 16px;
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .rm-btn:hover { border-color: var(--danger); color: var(--danger); }
-  .add-med { width: 100%; padding: 8px; font-size: 12px; background: transparent;
-             border: 1px dashed var(--border); border-radius: var(--radius);
-             cursor: pointer; color: var(--muted); margin-bottom: 12px; transition: all .15s; }
-  .add-med:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-  .fixo-item { display: flex; align-items: center; gap: 10px; padding: 6px 0;
-               border-bottom: 1px solid var(--border); }
-  .fixo-item:last-child { border-bottom: none; }
-  .fixo-item input[type=checkbox] { width: 15px; height: 15px; flex-shrink: 0;
-                                    accent-color: var(--accent); cursor: pointer; }
-  .fixo-item span { font-size: 12px; color: var(--muted); }
-  .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card);
-                border-top: 1px solid var(--border); padding: 12px 24px;
-                display: flex; justify-content: flex-end; gap: 10px; z-index: 100; }
-  .btn-clear { padding: 9px 18px; font-size: 13px; background: transparent;
-               border: 1px solid var(--border); border-radius: var(--radius);
-               cursor: pointer; color: var(--text); }
-  .btn-clear:hover { background: var(--bg); }
-  .btn-gerar { padding: 9px 24px; font-size: 13px; font-weight: 600;
-               background: var(--accent); color: #fff; border: none;
-               border-radius: var(--radius); cursor: pointer; transition: opacity .15s; }
-  .btn-gerar:disabled { opacity: .5; cursor: default; }
-  .btn-gerar:hover:not(:disabled) { opacity: .88; }
-  .toast { position: fixed; top: 20px; right: 20px; background: #222; color: #fff;
-           padding: 10px 18px; border-radius: var(--radius); font-size: 13px;
-           opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
-  .toast.show { opacity: 1; }
-  @media (max-width: 600px) {
-    .c2, .c3 { grid-template-columns: 1fr; }
-    .med-row { grid-template-columns: 1fr 70px; }
-    .med-row .field:nth-child(3), .med-row .field:nth-child(4) { grid-column: span 1; }
+  .p-doc{font-family:Arial,Helvetica,sans-serif;font-size:8.5pt;color:#000}
+  .p-logo{height:36px;margin-bottom:4px}
+  .p-title-box{border:1px solid #000;text-align:center;padding:3px 0}
+  .p-title-box p{font-size:9pt;font-weight:bold;line-height:1.6}
+  .p-hrow{display:flex;border:1px solid #000;border-top:none}
+  .p-hrow .hl{flex:1;padding:3px 5px;border-right:1px solid #000;font-size:8.5pt}
+  .p-hrow .hr{width:130px;padding:3px 5px;font-size:8.5pt}
+  table.pt{width:100%;border-collapse:collapse;margin-top:6px;font-size:8pt}
+  table.pt th{border:1px solid #000;padding:3px 4px;text-align:center;font-weight:bold;background:#f0f0f0}
+  table.pt td{border:1px solid #000;padding:2px 4px}
+  table.pt td.bld{font-weight:bold}
+  .p-ev-title{border:1px solid #000;text-align:center;font-weight:bold;padding:3px;margin-top:8px;font-size:9pt}
+  .p-ev-row{border:1px solid #000;border-top:none;padding:3px 5px;font-size:8.5pt}
+  .p-ev-2col{display:flex}
+  .p-ev-2col .col{flex:1;border:1px solid #000;border-top:none;padding:3px 5px;font-size:8.5pt}
+  .p-ev-2col .col:last-child{border-left:none}
+  .p-break{page-break-before:always}
+  /* Lab print */
+  .p-lab-title{border:1px solid #000;text-align:center;font-weight:bold;padding:3px;margin-top:8px;font-size:9pt;background:#f0f0f0}
+  table.plab{width:100%;border-collapse:collapse;font-size:7.5pt}
+  table.plab th{border:1px solid #000;padding:2px 4px;text-align:center;font-weight:bold;background:#f0f0f0}
+  table.plab td{border:1px solid #000;padding:2px 4px}
+  table.plab td.grp{font-weight:bold;background:#f8f8f8}
+  table.plab td.sub{padding-left:12px}
+  .p-imagem-box{border:1px solid #000;border-top:none;min-height:60px;padding:4px 5px;font-size:8.5pt}
+
+  @media(max-width:600px){
+    .c2,.lab-row,.lab-date-row{grid-template-columns:1fr}
+    .med-row{grid-template-columns:1fr 70px}
+    .add-fixo-row{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -106,15 +116,14 @@
 </header>
 
 <div class="container">
-
-  <!-- TABS -->
   <div class="tabs">
     <button class="tab active" onclick="setTab('presc',this)">Prescrição</button>
     <button class="tab" onclick="setTab('ev',this)">Evolução</button>
+    <button class="tab" onclick="setTab('lab',this)">Exames Laboratoriais</button>
     <button class="tab" onclick="setTab('ambos',this)">Prescrição + Evolução</button>
   </div>
 
-  <!-- CABEÇALHO (sempre visível) -->
+  <!-- CABEÇALHO -->
   <div class="card">
     <div class="sec">Cabeçalho do documento</div>
     <div class="row c2">
@@ -123,6 +132,9 @@
     </div>
     <div class="row c2">
       <div class="field"><label>Hipótese diagnóstica (HD)</label><input id="hd" placeholder="ex: Pneumonia bacteriana" autocomplete="off"></div>
+      <div class="field"><label>Leito</label><input id="leito" placeholder="ex: 12A"></div>
+    </div>
+    <div class="row c2" style="margin-top:0">
       <div class="field"><label>Data do documento</label><input type="date" id="data"></div>
     </div>
   </div>
@@ -135,43 +147,31 @@
         <div class="field"><label>Dieta</label>
           <select id="dieta">
             <option value="">— selecionar —</option>
-            <option>Via oral livre</option>
-            <option>Via oral livre – diabética</option>
-            <option>Via oral livre – hiposódica</option>
-            <option>Dieta branda</option>
-            <option>Dieta pastosa</option>
-            <option>Dieta líquida</option>
+            <option>Via oral livre</option><option>Via oral livre – diabética</option>
+            <option>Via oral livre – hiposódica</option><option>Dieta branda</option>
+            <option>Dieta pastosa</option><option>Dieta líquida</option>
             <option>Jejum / zero via oral</option>
           </select>
         </div>
-        <div class="field"><label>SF 0,9% — volume e posologia</label>
-          <input id="sf" placeholder="ex: 500 ML — deixe vazio para omitir">
+        <div class="field"><label>SF 0,9% — volume</label>
+          <input id="sf" placeholder="ex: 500 ML — vazio para omitir">
         </div>
       </div>
-
       <div class="sec">Medicamentos do paciente</div>
       <div id="med_list"></div>
       <button class="add-med" onclick="addMed()">+ adicionar medicamento</button>
-
       <div class="sec">Itens padrão da UPA</div>
-      <div id="fixos">
-        <div class="fixo-item"><input type="checkbox" id="f0" checked><span>HEPARINA NÃO FRACIONADA 5.000UI — SC</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f1" checked><span>DIPIRONA 500MG, 02CP, SE DOR E/OU FEBRE — VO SOS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f2" checked><span>DIPIRONA 01 AMP + 10ML AD — EV SOS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f3"><span>TRAMADOL 01 AMP + SF 0,9% 100ML — EV ACM</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f4" checked><span>BROMOPRIDA 01 AMP, SE NÁUSEAS E/OU VÔMITOS — EV SOS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f5"><span>DRAMIN 01 AMP — IM SOS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f6"><span>CAPTOPRIL 25MG, 02CP, SE PA ≥ 160X110MMHG — VO ACM</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f7"><span>ATENSINA 0,100MG, 01CP, SE PA ≥ 160X110MMHG</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f8"><span>HIDRALAZINA 01 AMP + AD 19ML, FAZER 05ML — EV ACM</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f9"><span>SF 0,9% 1.000ML — EV ACM</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f10"><span>O2 CONTÍNUO EM CN 2L/MIN, SE SATO2 &lt; 92% — INAL ACM</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f11"><span>GH 50% 40ML, SE HGT &lt; 70MG/DL, EM BOLUS — EV SOS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f12"><span>INSULINA REGULAR DE ACORDO COM HGT — SC SOS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f13"><span>HGT — SC 6/6H SE DM</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f14" checked><span>COMUNICAR INTERCORRÊNCIAS</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f15" checked><span>CABECEIRA ELEVADA 30º</span></div>
-        <div class="fixo-item"><input type="checkbox" id="f16" checked><span>SINAIS VITAIS + CGE 6/6H</span></div>
+      <div id="fixos_list"></div>
+      <div class="add-fixo-row">
+        <div class="field"><label>Novo item padrão</label><input id="nf_med" placeholder="ex: Omeprazol 40mg 01cp"></div>
+        <div class="field"><label>Via</label>
+          <select id="nf_via"><option>VO</option><option>EV</option><option>IM</option><option>SC</option><option>INAL</option><option>SL</option><option value=""></option></select>
+        </div>
+        <div class="field"><label>Posologia</label><input id="nf_pos" placeholder="ex: 1x/dia"></div>
+        <div class="field"><label>Tipo</label>
+          <select id="nf_tipo"><option value=""></option><option>AGORA</option><option>SE NECESSÁRIO</option><option>ACM</option><option>CONTÍNUO</option><option>DOSE ÚNICA</option></select>
+        </div>
+        <button class="btn-add-fixo" onclick="addFixo()">+ Salvar</button>
       </div>
     </div>
   </div>
@@ -189,155 +189,278 @@
         <div class="field"><label>Comorbidades</label><textarea id="comorbidades" placeholder="ex: HAS, DM tipo 2..."></textarea></div>
         <div class="field"><label>Antecedentes</label><textarea id="antecedentes" placeholder="ex: Tabagista..."></textarea></div>
       </div>
-      <div class="row"><div class="field"><label>ATB prévio</label><input id="atb" placeholder="ex: Não / Amoxicilina 7 dias há 2 semanas"></div></div>
+      <div class="row"><div class="field"><label>ATB prévio</label><input id="atb" placeholder="ex: Não"></div></div>
       <div class="row"><div class="field"><label>Evolução médica</label><textarea id="ev_med" rows="3" placeholder="Evolução clínica..."></textarea></div></div>
       <div class="row"><div class="field"><label>Exame físico</label><textarea id="ef" rows="3" placeholder="Consciente, orientado..."></textarea></div></div>
       <div class="row"><div class="field"><label>Conduta</label><textarea id="conduta" rows="3" placeholder="Manter..."></textarea></div></div>
     </div>
   </div>
 
+  <!-- EXAMES LABORATORIAIS -->
+  <div id="sec_lab" style="display:none">
+    <div class="card">
+      <div class="sec">Datas das coletas (até 5 colunas)</div>
+      <div class="lab-date-row">
+        <span></span>
+        <input id="d1" placeholder="Data 1" type="date">
+        <input id="d2" placeholder="Data 2" type="date">
+        <input id="d3" placeholder="Data 3" type="date">
+        <input id="d4" placeholder="Data 4" type="date">
+        <input id="d5" placeholder="Data 5" type="date">
+      </div>
+
+      <div class="sec">Gasometria arterial</div>
+      <div id="lab_gaso"></div>
+
+      <div class="sec">Hemograma</div>
+      <div id="lab_hmg"></div>
+
+      <div class="sec">Ureia / Creatinina / EAS</div>
+      <div id="lab_ur"></div>
+
+      <div class="sec">Íons</div>
+      <div id="lab_ions"></div>
+
+      <div class="sec">Outros</div>
+      <div id="lab_outros"></div>
+
+      <div class="sec">Exames de imagem</div>
+      <div class="field"><textarea id="imagem" rows="3" placeholder="ex: RX tórax (18/04): condensação em base esquerda..."></textarea></div>
+    </div>
+  </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer-bar">
   <button class="btn-clear" onclick="limpar()">Limpar</button>
-  <button class="btn-gerar" id="gen_btn" onclick="gerar()">⬇ Gerar PDF</button>
+  <button class="btn-print" onclick="imprimir()">🖨 Imprimir</button>
 </div>
-
 <div class="toast" id="toast"></div>
+<div id="print-area"></div>
 
 <script>
-let mc = 0, currentTab = 'presc';
+let mc=0, currentTab='presc';
 
-const FX = [
-  {med:'HEPARINA NAO FRACIONADA 5.000UI', via:'SC', pos:'', apraz:''},
-  {med:'DIPIRONA 500MG, 02CP, SE DOR E/OU FEBRE', via:'VO', pos:'SOS', apraz:''},
-  {med:'DIPIRONA 01 AMP + 10ML AD', via:'EV', pos:'SOS', apraz:''},
-  {med:'TRAMADOL 01 AMP + SF 0,9% 100 ML', via:'EV', pos:'ACM', apraz:''},
-  {med:'BROMOPRIDA 01 AMP, SE NAUSEAS E/OU VOMITOS', via:'EV', pos:'SOS', apraz:''},
-  {med:'DRAMIN 01 AMP', via:'IM', pos:'SOS', apraz:''},
-  {med:'CAPTOPRIL 25MG, 02CP, SE PA >= 160X110MMHG', via:'VO', pos:'ACM', apraz:''},
-  {med:'ATENSINA 0,100MG, 01CP, SE PA >= 160X110MMHG', via:'', pos:'', apraz:''},
-  {med:'HIDRALAZINA 01 AMP + AD 19ML, FAZER 05ML', via:'EV', pos:'ACM', apraz:''},
-  {med:'SF 0,9% 1.000ML', via:'EV', pos:'ACM', apraz:''},
-  {med:'O2 CONTINUO EM CN 2L/MIN, SE SATO2 < 92% - EM CASO DE DESCONFORTO RESPIRATORIO AVISAR O MEDICO PLANTONISTA!', via:'INAL', pos:'ACM', apraz:''},
-  {med:'GH 50% 40ML, SE HGT<70MG/DL, EM BOLUS', via:'EV', pos:'SOS', apraz:''},
-  {med:'INSULINA REGULAR: 180-200:2UI 201-250:4UI 251-300:6UI 301-350:8UI 351-400:10UI >400 AVISAR MEDICO', via:'SC', pos:'SOS', apraz:''},
-  {med:'HGT', via:'SC', pos:'6/6H SE DM', apraz:''},
-  {med:'COMUNICAR INTERCORRENCIAS', via:'', pos:'', apraz:''},
-  {med:'CABECEIRA ELEVADA 30', via:'', pos:'', apraz:''},
-  {med:'SINAIS VITAIS + CGE', via:'', pos:'6/6H', apraz:''},
+// ===== ITENS PADRÃO =====
+const FX_DEFAULT=[
+  {med:'HEPARINA NAO FRACIONADA 5.000UI',via:'SC',pos:'',tipo:'',checked:true},
+  {med:'DIPIRONA 500MG, 02CP, SE DOR E/OU FEBRE',via:'VO',pos:'',tipo:'SE NECESSÁRIO',checked:true},
+  {med:'DIPIRONA 01 AMP + 10ML AD',via:'EV',pos:'',tipo:'SE NECESSÁRIO',checked:true},
+  {med:'TRAMADOL 01 AMP + SF 0,9% 100 ML',via:'EV',pos:'',tipo:'ACM',checked:false},
+  {med:'BROMOPRIDA 01 AMP, SE NAUSEAS E/OU VOMITOS',via:'EV',pos:'',tipo:'SE NECESSÁRIO',checked:true},
+  {med:'DRAMIN 01 AMP',via:'IM',pos:'',tipo:'SE NECESSÁRIO',checked:false},
+  {med:'CAPTOPRIL 25MG, 02CP, SE PA >= 160X110MMHG',via:'VO',pos:'',tipo:'ACM',checked:false},
+  {med:'ATENSINA 0,100MG, 01CP, SE PA >= 160X110MMHG',via:'',pos:'',tipo:'',checked:false},
+  {med:'HIDRALAZINA 01 AMP + AD 19ML, FAZER 05ML',via:'EV',pos:'',tipo:'ACM',checked:false},
+  {med:'SF 0,9% 1.000ML',via:'EV',pos:'',tipo:'ACM',checked:false},
+  {med:'O2 CONTINUO EM CN 2L/MIN, SE SATO2 < 92%',via:'INAL',pos:'',tipo:'ACM',checked:false},
+  {med:'GH 50% 40ML, SE HGT<70MG/DL, EM BOLUS',via:'EV',pos:'',tipo:'SE NECESSÁRIO',checked:false},
+  {med:'INSULINA REGULAR DE ACORDO COM HGT',via:'SC',pos:'',tipo:'SE NECESSÁRIO',checked:false},
+  {med:'HGT',via:'SC',pos:'6/6H SE DM',tipo:'',checked:false},
+  {med:'COMUNICAR INTERCORRENCIAS',via:'',pos:'',tipo:'',checked:true},
+  {med:'CABECEIRA ELEVADA 30',via:'',pos:'',tipo:'',checked:true},
+  {med:'SINAIS VITAIS + CGE',via:'',pos:'6/6H',tipo:'',checked:true},
 ];
-
-function setTab(t, el) {
-  currentTab = t;
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('sec_presc').style.display = (t === 'ev') ? 'none' : 'block';
-  document.getElementById('sec_ev').style.display = (t === 'presc') ? 'none' : 'block';
+function loadFixos(){try{return JSON.parse(localStorage.getItem('fixos_upa'))||FX_DEFAULT}catch(e){return FX_DEFAULT}}
+function saveFixos(a){localStorage.setItem('fixos_upa',JSON.stringify(a))}
+function renderFixos(){
+  const arr=loadFixos(),el=document.getElementById('fixos_list');
+  el.innerHTML='';
+  arr.forEach((f,i)=>{
+    const lbl=f.med+(f.via?' — '+f.via:'')+(f.pos?' '+f.pos:'')+(f.tipo?' '+f.tipo:'');
+    const d=document.createElement('div');d.className='fixo-item';
+    d.innerHTML=`<input type="checkbox" id="fx${i}" ${f.checked?'checked':''} onchange="toggleFixo(${i})">
+      <span>${lbl}</span>
+      <button class="del-fixo" onclick="delFixo(${i})" title="Remover">×</button>`;
+    el.appendChild(d);
+  });
+}
+function toggleFixo(i){const a=loadFixos();a[i].checked=document.getElementById('fx'+i).checked;saveFixos(a)}
+function delFixo(i){const a=loadFixos();a.splice(i,1);saveFixos(a);renderFixos();toast('Item removido.')}
+function addFixo(){
+  const med=document.getElementById('nf_med').value.trim();
+  if(!med){toast('Digite o medicamento.');return}
+  const a=loadFixos();
+  a.push({med:med.toUpperCase(),via:document.getElementById('nf_via').value,
+    pos:document.getElementById('nf_pos').value,tipo:document.getElementById('nf_tipo').value,checked:true});
+  saveFixos(a);renderFixos();
+  document.getElementById('nf_med').value='';
+  document.getElementById('nf_pos').value='';
+  document.getElementById('nf_tipo').value='';
+  toast('Item padrão salvo!');
 }
 
-function addMed() {
+// ===== EXAMES LAB =====
+const LAB_GROUPS={
+  lab_gaso:['PH','PO2','PCO2','HCO3','BE','SAT'],
+  lab_hmg:['HB/HT','LEUCO','MIELO','M.MIELO','BAST','SEG','EOSI','LINF','MONO','PLAQ'],
+  lab_ur:['UREIA','CREATININA','EAS'],
+  lab_ions:['SÓDIO (NA)','POTÁSSIO (K)'],
+  lab_outros:['PCR','LACTATO','TGO','TGP','LIPASE','AMILASE','FA','GGT','TROPONINA','CPK','CK-MB'],
+};
+function renderLab(){
+  Object.entries(LAB_GROUPS).forEach(([gid,items])=>{
+    const el=document.getElementById(gid);el.innerHTML='';
+    items.forEach(item=>{
+      const key=item.replace(/[^a-zA-Z0-9]/g,'_');
+      const row=document.createElement('div');row.className='lab-row';
+      row.innerHTML=`<label>${item}</label>
+        <input id="l_${key}_1" placeholder="—">
+        <input id="l_${key}_2" placeholder="—">
+        <input id="l_${key}_3" placeholder="—">
+        <input id="l_${key}_4" placeholder="—">
+        <input id="l_${key}_5" placeholder="—">`;
+      el.appendChild(row);
+    });
+  });
+}
+
+// ===== TABS =====
+function setTab(t,el){
+  currentTab=t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sec_presc').style.display=(t==='ev'||t==='lab')?'none':'block';
+  document.getElementById('sec_ev').style.display=(t==='presc'||t==='lab')?'none':'block';
+  document.getElementById('sec_lab').style.display=(t==='lab')?'block':'none';
+}
+
+// ===== MEDICAMENTOS =====
+function addMed(){
   mc++;
-  const d = document.getElementById('med_list');
-  const div = document.createElement('div');
-  div.className = 'med-row'; div.id = 'mr' + mc;
-  div.innerHTML = `
+  const d=document.getElementById('med_list');
+  const div=document.createElement('div');div.className='med-row';div.id='mr'+mc;
+  div.innerHTML=`
     <div class="field"><label>Medicamento</label><input placeholder="ex: Amoxicilina 500mg 01cp"></div>
     <div class="field"><label>Via</label>
       <select><option>VO</option><option>EV</option><option>IM</option><option>SC</option><option>INAL</option><option>SL</option></select>
     </div>
     <div class="field"><label>Posologia</label><input placeholder="ex: 8/8h"></div>
     <div class="field"><label>Tipo</label>
-      <select><option value=""></option><option>SOS</option><option>ACM</option><option>Contínuo</option><option>Dose única</option></select>
+      <select><option value=""></option><option>AGORA</option><option>SE NECESSÁRIO</option><option>ACM</option><option>CONTÍNUO</option><option>DOSE ÚNICA</option></select>
     </div>
-    <button class="rm-btn" onclick="document.getElementById('mr${mc}').remove()" title="Remover">×</button>`;
+    <button class="rm-btn" onclick="document.getElementById('mr${mc}').remove()">×</button>`;
   d.appendChild(div);
 }
 
-function v(id) { return (document.getElementById(id)||{}).value || ''; }
+function v(id){return(document.getElementById(id)||{}).value||''}
+function fmtDate(id){const val=v(id);if(!val)return'';return val.split('-').reverse().join('/')}
 
-function toast(msg, dur=2500) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), dur);
+function toast(msg,dur=2500){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
 }
 
-async function gerar() {
-  const btn = document.getElementById('gen_btn');
-  btn.textContent = 'Gerando...'; btn.disabled = true;
+// ===== IMPRIMIR =====
+function imprimir(){
+  const nome=v('nome')||'___________________________';
+  const dn=v('dn')||'___/___/______';
+  const hd=v('hd')||'';
+  const leito=v('leito')||'___';
+  const data=fmtDate('data')||new Date().toLocaleDateString('pt-BR');
 
-  const meds = [];
-  document.querySelectorAll('#med_list .med-row').forEach((row, i) => {
-    const ins = row.querySelectorAll('input, select');
-    const med = ins[0].value, via = ins[1].value, pos = ins[2].value, tipo = ins[3].value;
-    if (med.trim()) meds.push({item: String(i+1), med, via, pos: pos+(tipo?' '+tipo:''), apraz:''});
-  });
+  let html='<div class="p-doc">';
 
-  const fixos = [];
-  for (let i = 0; i < 17; i++) {
-    if (document.getElementById('f'+i)?.checked) fixos.push(FX[i]);
-  }
+  // ---- PRESCRIÇÃO ----
+  if(currentTab==='presc'||currentTab==='ambos'){
+    html+=`<img src="logo.png" class="p-logo">
+      <div class="p-title-box"><p>UNIDADE DE PRONTO ATENDIMENTO (UPA) 24h</p><p>PRESCRICAO MEDICA - ENFERMARIA</p></div>
+      <div class="p-hrow"><div class="hl"><b>NOME:</b> ${nome}</div><div class="hr"><b>DN:</b> ${dn}</div></div>
+      <div class="p-hrow"><div class="hl"><b>HD:</b> ${hd}</div><div class="hr"><b>DATA:</b> ${data}</div></div>`;
 
-  const payload = {
-    nome: v('nome') || '___________________________',
-    dn: v('dn') || '___/___/______',
-    hd: v('hd') || '',
-    data: v('data') ? v('data').split('-').reverse().join('/') : new Date().toLocaleDateString('pt-BR'),
-    dieta: v('dieta'),
-    sf: v('sf'),
-    medicamentos: meds,
-    fixos,
-    includePresc: currentTab !== 'ev',
-    includeEv: currentTab !== 'presc',
-    evolucao: {
-      dih: v('dih'),
-      hipoteses: v('ev_hd') || v('hd'),
-      admissao: v('admissao'),
-      comorbidades: v('comorbidades'),
-      antecedentes: v('antecedentes'),
-      atb_previo: v('atb'),
-      evolucao_medica: v('ev_med'),
-      exame_fisico: v('ef'),
-      conduta: v('conduta'),
-    }
-  };
-
-  try {
-    const resp = await fetch('/gerar', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
+    const medRows=[];let idx=1;
+    document.querySelectorAll('#med_list .med-row').forEach(row=>{
+      const ins=row.querySelectorAll('input,select');
+      const med=ins[0].value.trim(),via=ins[1].value,pos=ins[2].value,tipo=ins[3].value;
+      if(med) medRows.push({item:idx++,med:med.toUpperCase(),via,pos:[pos,tipo].filter(Boolean).join(' '),bold:true});
     });
-    if (!resp.ok) throw new Error('Erro no servidor');
-    const blob = await resp.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `prescricao_${(v('nome')||'paciente').replace(/\s+/g,'_').toLowerCase()}.pdf`;
-    a.click();
-    URL.revokeObjectURL(url);
-    toast('PDF gerado com sucesso!');
-  } catch(e) {
-    toast('Erro ao gerar PDF: ' + e.message, 4000);
+    loadFixos().filter(f=>f.checked).forEach(f=>{
+      medRows.push({item:'',med:f.med,via:f.via,pos:[f.pos,f.tipo].filter(Boolean).join(' '),bold:false});
+    });
+
+    const dieta=v('dieta'),sf=v('sf');
+    html+=`<table class="pt"><thead><tr>
+      <th style="width:4%">ITEM</th><th style="width:46%">MEDICAMENTO</th>
+      <th style="width:8%">VIA</th><th style="width:26%">POSOLOGIA</th><th style="width:16%">APRAZAMENTO</th>
+    </tr></thead><tbody>`;
+    if(dieta) html+=`<tr><td></td><td>DIETA: ${dieta.toUpperCase()}</td><td></td><td></td><td></td></tr>`;
+    if(sf) html+=`<tr><td></td><td>SF 0,9% ${sf.toUpperCase()}</td><td>EV</td><td></td><td></td></tr>`;
+    medRows.forEach(r=>{
+      html+=`<tr><td style="text-align:center">${r.item}</td><td class="${r.bold?'bld':''}">${r.med}</td>
+        <td style="text-align:center">${r.via}</td><td>${r.pos}</td><td></td></tr>`;
+    });
+    const empty=Math.max(0,20-medRows.length-(dieta?1:0)-(sf?1:0));
+    for(let i=0;i<empty;i++) html+=`<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>`;
+    html+=`</tbody></table>`;
   }
 
-  btn.textContent = '⬇ Gerar PDF'; btn.disabled = false;
+  // ---- EVOLUÇÃO ----
+  if(currentTab==='ev'||currentTab==='ambos'){
+    if(currentTab==='ambos') html+=`<div class="p-break"></div>`;
+    html+=`<img src="logo.png" class="p-logo">
+      <div class="p-title-box"><p>UNIDADE DE PRONTO ATENDIMENTO (UPA) 24h</p><p>PRESCRICAO MEDICA - ENFERMARIA</p></div>
+      <div class="p-hrow"><div class="hl"><b>NOME:</b> ${nome}</div><div class="hr"><b>DN:</b> ${dn}</div></div>
+      <div class="p-hrow"><div class="hl"><b>HD:</b> ${hd}</div><div class="hr"><b>DATA:</b> ${data}</div></div>
+      <div class="p-ev-title">EVOLUCAO DE ENFERMARIA</div>
+      <div class="p-ev-2col">
+        <div class="col"><b>DIA DE INTERNACAO (DIH):</b> ${v('dih')}</div>
+        <div class="col"><b>HIPOTESE(S) DIAGNOSTICA(S):</b> ${v('ev_hd')||hd}</div>
+      </div>
+      <div class="p-ev-row" style="min-height:50px"><b>ADMISSAO:</b> ${v('admissao')}</div>
+      <div class="p-ev-row" style="min-height:36px"><b>COMORBIDADES:</b> ${v('comorbidades')}</div>
+      <div class="p-ev-row" style="min-height:30px"><b>ANTECEDENTES:</b> ${v('antecedentes')}</div>
+      <div class="p-ev-row" style="min-height:30px"><b>ATB PREVIO:</b> ${v('atb')}</div>
+      <div class="p-ev-row" style="min-height:70px"><b>EVOLUCAO MEDICA:</b> ${v('ev_med')}</div>
+      <div class="p-ev-row" style="min-height:70px"><b>EXAME FISICO:</b> ${v('ef')}</div>
+      <div class="p-ev-row" style="min-height:60px"><b>CONDUTA:</b> ${v('conduta')}</div>`;
+  }
+
+  // ---- EXAMES LABORATORIAIS ----
+  if(currentTab==='lab'){
+    const dates=[fmtDate('d1'),fmtDate('d2'),fmtDate('d3'),fmtDate('d4'),fmtDate('d5')];
+    html+=`<img src="logo.png" class="p-logo">
+      <div class="p-title-box"><p>ENFERMARIA</p><p>TABELA DE EXAMES LABORATORIAIS</p></div>
+      <div class="p-hrow"><div class="hl"><b>Paciente:</b> ${nome}</div><div class="hr"><b>Leito:</b> ${leito}</div></div>
+      <div class="p-lab-title">EXAMES LABORATORIAIS</div>
+      <table class="plab"><thead><tr>
+        <th style="width:18%">EXAME</th>
+        <th>${dates[0]||'Data 1'}</th><th>${dates[1]||'Data 2'}</th>
+        <th>${dates[2]||'Data 3'}</th><th>${dates[3]||'Data 4'}</th><th>${dates[4]||'Data 5'}</th>
+      </tr></thead><tbody>`;
+
+    const GROUP_LABELS={lab_gaso:'GASO (A)',lab_hmg:'HMG',lab_ur:'UR/CR/EAS',lab_ions:'IONS',lab_outros:'OUTROS'};
+    Object.entries(LAB_GROUPS).forEach(([gid,items])=>{
+      html+=`<tr><td class="grp" colspan="6">${GROUP_LABELS[gid]}</td></tr>`;
+      items.forEach(item=>{
+        const key=item.replace(/[^a-zA-Z0-9]/g,'_');
+        const vals=[1,2,3,4,5].map(n=>v(`l_${key}_${n}`));
+        html+=`<tr><td class="sub">${item}</td>${vals.map(vl=>`<td>${vl}</td>`).join('')}</tr>`;
+      });
+    });
+    html+=`</tbody></table>`;
+
+    const img=v('imagem');
+    html+=`<div class="p-lab-title">EXAMES DE IMAGEM</div>
+      <div class="p-imagem-box">${img.replace(/\n/g,'<br>')}</div>`;
+  }
+
+  html+='</div>';
+  document.getElementById('print-area').innerHTML=html;
+  setTimeout(()=>window.print(),150);
 }
 
-function limpar() {
-  document.querySelectorAll('input:not([type=checkbox]), select, textarea').forEach(el => el.value = '');
-  for (let i = 0; i < 17; i++) {
-    const el = document.getElementById('f'+i);
-    if (el) el.checked = [0,1,2,4,14,15,16].includes(i);
-  }
-  document.getElementById('med_list').innerHTML = '';
-  mc = 0;
-  document.getElementById('data').valueAsDate = new Date();
+// ===== LIMPAR =====
+function limpar(){
+  document.querySelectorAll('input:not([type=checkbox]),select,textarea').forEach(el=>el.value='');
+  document.getElementById('med_list').innerHTML='';mc=0;
+  document.getElementById('data').valueAsDate=new Date();
+  renderFixos();renderLab();
   toast('Formulário limpo.');
 }
 
-document.getElementById('data').valueAsDate = new Date();
+// ===== INIT =====
+document.getElementById('data').valueAsDate=new Date();
+renderFixos();renderLab();
 </script>
 </body>
 </html>
