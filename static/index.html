@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prescrição UPA – Aparecida</title>
+<style>
+  :root {
+    --bg: #f5f5f3;
+    --card: #ffffff;
+    --border: #e0ddd8;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #1a6b3c;
+    --accent-light: #e8f5ee;
+    --danger: #c0392b;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         background: var(--bg); color: var(--text); font-size: 14px; }
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 16px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  header img { height: 36px; }
+  header h1 { font-size: 15px; font-weight: 600; color: var(--text); }
+  header span { font-size: 12px; color: var(--muted); }
+  .container { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .tab { padding: 9px 20px; font-size: 13px; font-weight: 500; border: none;
+         background: transparent; cursor: pointer; color: var(--muted);
+         border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab:hover:not(.active) { color: var(--text); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+          padding: 20px; margin-bottom: 16px; }
+  .sec { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase;
+         letter-spacing: .07em; margin: 20px 0 10px; padding-top: 16px;
+         border-top: 1px solid var(--border); }
+  .sec:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  .row { display: grid; gap: 10px; margin-bottom: 10px; }
+  .c2 { grid-template-columns: 1fr 1fr; }
+  .c3 { grid-template-columns: 1fr 1fr 1fr; }
+  .field label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; font-weight: 500; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--border);
+    border-radius: var(--radius); font-size: 13px; font-family: inherit;
+    background: #fafaf9; color: var(--text); transition: border .15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--accent); background: #fff;
+  }
+  .field textarea { resize: vertical; line-height: 1.5; min-height: 64px; }
+  .med-row { display: grid; grid-template-columns: minmax(0,3fr) 80px minmax(0,1.5fr) 90px 32px;
+             gap: 8px; align-items: end; margin-bottom: 8px; }
+  .med-row .field label { font-size: 11px; }
+  .rm-btn { height: 36px; width: 32px; background: transparent; border: 1px solid var(--border);
+            border-radius: var(--radius); cursor: pointer; color: var(--muted); font-size: 16px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .rm-btn:hover { border-color: var(--danger); color: var(--danger); }
+  .add-med { width: 100%; padding: 8px; font-size: 12px; background: transparent;
+             border: 1px dashed var(--border); border-radius: var(--radius);
+             cursor: pointer; color: var(--muted); margin-bottom: 12px; transition: all .15s; }
+  .add-med:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .fixo-item { display: flex; align-items: center; gap: 10px; padding: 6px 0;
+               border-bottom: 1px solid var(--border); }
+  .fixo-item:last-child { border-bottom: none; }
+  .fixo-item input[type=checkbox] { width: 15px; height: 15px; flex-shrink: 0;
+                                    accent-color: var(--accent); cursor: pointer; }
+  .fixo-item span { font-size: 12px; color: var(--muted); }
+  .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card);
+                border-top: 1px solid var(--border); padding: 12px 24px;
+                display: flex; justify-content: flex-end; gap: 10px; z-index: 100; }
+  .btn-clear { padding: 9px 18px; font-size: 13px; background: transparent;
+               border: 1px solid var(--border); border-radius: var(--radius);
+               cursor: pointer; color: var(--text); }
+  .btn-clear:hover { background: var(--bg); }
+  .btn-gerar { padding: 9px 24px; font-size: 13px; font-weight: 600;
+               background: var(--accent); color: #fff; border: none;
+               border-radius: var(--radius); cursor: pointer; transition: opacity .15s; }
+  .btn-gerar:disabled { opacity: .5; cursor: default; }
+  .btn-gerar:hover:not(:disabled) { opacity: .88; }
+  .toast { position: fixed; top: 20px; right: 20px; background: #222; color: #fff;
+           padding: 10px 18px; border-radius: var(--radius); font-size: 13px;
+           opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+  @media (max-width: 600px) {
+    .c2, .c3 { grid-template-columns: 1fr; }
+    .med-row { grid-template-columns: 1fr 70px; }
+    .med-row .field:nth-child(3), .med-row .field:nth-child(4) { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Prefeitura de Aparecida">
+  <div>
+    <h1>Prescrição Médica — Enfermaria</h1>
+    <span>UPA 24h · Aparecida de Goiânia</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="setTab('presc',this)">Prescrição</button>
+    <button class="tab" onclick="setTab('ev',this)">Evolução</button>
+    <button class="tab" onclick="setTab('ambos',this)">Prescrição + Evolução</button>
+  </div>
+
+  <!-- CABEÇALHO (sempre visível) -->
+  <div class="card">
+    <div class="sec">Cabeçalho do documento</div>
+    <div class="row c2">
+      <div class="field"><label>Nome do paciente</label><input id="nome" placeholder="Nome completo" autocomplete="off"></div>
+      <div class="field"><label>Data de nascimento</label><input id="dn" placeholder="DD/MM/AAAA" autocomplete="off"></div>
+    </div>
+    <div class="row c2">
+      <div class="field"><label>Hipótese diagnóstica (HD)</label><input id="hd" placeholder="ex: Pneumonia bacteriana" autocomplete="off"></div>
+      <div class="field"><label>Data do documento</label><input type="date" id="data"></div>
+    </div>
+  </div>
+
+  <!-- PRESCRIÇÃO -->
+  <div id="sec_presc">
+    <div class="card">
+      <div class="sec">Dieta e hidratação venosa</div>
+      <div class="row c2">
+        <div class="field"><label>Dieta</label>
+          <select id="dieta">
+            <option value="">— selecionar —</option>
+            <option>Via oral livre</option>
+            <option>Via oral livre – diabética</option>
+            <option>Via oral livre – hiposódica</option>
+            <option>Dieta branda</option>
+            <option>Dieta pastosa</option>
+            <option>Dieta líquida</option>
+            <option>Jejum / zero via oral</option>
+          </select>
+        </div>
+        <div class="field"><label>SF 0,9% — volume e posologia</label>
+          <input id="sf" placeholder="ex: 500 ML — deixe vazio para omitir">
+        </div>
+      </div>
+
+      <div class="sec">Medicamentos do paciente</div>
+      <div id="med_list"></div>
+      <button class="add-med" onclick="addMed()">+ adicionar medicamento</button>
+
+      <div class="sec">Itens padrão da UPA</div>
+      <div id="fixos">
+        <div class="fixo-item"><input type="checkbox" id="f0" checked><span>HEPARINA NÃO FRACIONADA 5.000UI — SC</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f1" checked><span>DIPIRONA 500MG, 02CP, SE DOR E/OU FEBRE — VO SOS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f2" checked><span>DIPIRONA 01 AMP + 10ML AD — EV SOS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f3"><span>TRAMADOL 01 AMP + SF 0,9% 100ML — EV ACM</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f4" checked><span>BROMOPRIDA 01 AMP, SE NÁUSEAS E/OU VÔMITOS — EV SOS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f5"><span>DRAMIN 01 AMP — IM SOS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f6"><span>CAPTOPRIL 25MG, 02CP, SE PA ≥ 160X110MMHG — VO ACM</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f7"><span>ATENSINA 0,100MG, 01CP, SE PA ≥ 160X110MMHG</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f8"><span>HIDRALAZINA 01 AMP + AD 19ML, FAZER 05ML — EV ACM</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f9"><span>SF 0,9% 1.000ML — EV ACM</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f10"><span>O2 CONTÍNUO EM CN 2L/MIN, SE SATO2 &lt; 92% — INAL ACM</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f11"><span>GH 50% 40ML, SE HGT &lt; 70MG/DL, EM BOLUS — EV SOS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f12"><span>INSULINA REGULAR DE ACORDO COM HGT — SC SOS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f13"><span>HGT — SC 6/6H SE DM</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f14" checked><span>COMUNICAR INTERCORRÊNCIAS</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f15" checked><span>CABECEIRA ELEVADA 30º</span></div>
+        <div class="fixo-item"><input type="checkbox" id="f16" checked><span>SINAIS VITAIS + CGE 6/6H</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVOLUÇÃO -->
+  <div id="sec_ev" style="display:none">
+    <div class="card">
+      <div class="sec">Evolução de enfermaria</div>
+      <div class="row c2">
+        <div class="field"><label>Dia de internação (DIH)</label><input id="dih" placeholder="ex: 1º"></div>
+        <div class="field"><label>Hipótese(s) diagnóstica(s)</label><input id="ev_hd" placeholder="usa HD do cabeçalho se vazio"></div>
+      </div>
+      <div class="row"><div class="field"><label>Admissão</label><textarea id="admissao" placeholder="Resumo da admissão..."></textarea></div></div>
+      <div class="row c2">
+        <div class="field"><label>Comorbidades</label><textarea id="comorbidades" placeholder="ex: HAS, DM tipo 2..."></textarea></div>
+        <div class="field"><label>Antecedentes</label><textarea id="antecedentes" placeholder="ex: Tabagista..."></textarea></div>
+      </div>
+      <div class="row"><div class="field"><label>ATB prévio</label><input id="atb" placeholder="ex: Não / Amoxicilina 7 dias há 2 semanas"></div></div>
+      <div class="row"><div class="field"><label>Evolução médica</label><textarea id="ev_med" rows="3" placeholder="Evolução clínica..."></textarea></div></div>
+      <div class="row"><div class="field"><label>Exame físico</label><textarea id="ef" rows="3" placeholder="Consciente, orientado..."></textarea></div></div>
+      <div class="row"><div class="field"><label>Conduta</label><textarea id="conduta" rows="3" placeholder="Manter..."></textarea></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer-bar">
+  <button class="btn-clear" onclick="limpar()">Limpar</button>
+  <button class="btn-gerar" id="gen_btn" onclick="gerar()">⬇ Gerar PDF</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let mc = 0, currentTab = 'presc';
+
+const FX = [
+  {med:'HEPARINA NAO FRACIONADA 5.000UI', via:'SC', pos:'', apraz:''},
+  {med:'DIPIRONA 500MG, 02CP, SE DOR E/OU FEBRE', via:'VO', pos:'SOS', apraz:''},
+  {med:'DIPIRONA 01 AMP + 10ML AD', via:'EV', pos:'SOS', apraz:''},
+  {med:'TRAMADOL 01 AMP + SF 0,9% 100 ML', via:'EV', pos:'ACM', apraz:''},
+  {med:'BROMOPRIDA 01 AMP, SE NAUSEAS E/OU VOMITOS', via:'EV', pos:'SOS', apraz:''},
+  {med:'DRAMIN 01 AMP', via:'IM', pos:'SOS', apraz:''},
+  {med:'CAPTOPRIL 25MG, 02CP, SE PA >= 160X110MMHG', via:'VO', pos:'ACM', apraz:''},
+  {med:'ATENSINA 0,100MG, 01CP, SE PA >= 160X110MMHG', via:'', pos:'', apraz:''},
+  {med:'HIDRALAZINA 01 AMP + AD 19ML, FAZER 05ML', via:'EV', pos:'ACM', apraz:''},
+  {med:'SF 0,9% 1.000ML', via:'EV', pos:'ACM', apraz:''},
+  {med:'O2 CONTINUO EM CN 2L/MIN, SE SATO2 < 92% - EM CASO DE DESCONFORTO RESPIRATORIO AVISAR O MEDICO PLANTONISTA!', via:'INAL', pos:'ACM', apraz:''},
+  {med:'GH 50% 40ML, SE HGT<70MG/DL, EM BOLUS', via:'EV', pos:'SOS', apraz:''},
+  {med:'INSULINA REGULAR: 180-200:2UI 201-250:4UI 251-300:6UI 301-350:8UI 351-400:10UI >400 AVISAR MEDICO', via:'SC', pos:'SOS', apraz:''},
+  {med:'HGT', via:'SC', pos:'6/6H SE DM', apraz:''},
+  {med:'COMUNICAR INTERCORRENCIAS', via:'', pos:'', apraz:''},
+  {med:'CABECEIRA ELEVADA 30', via:'', pos:'', apraz:''},
+  {med:'SINAIS VITAIS + CGE', via:'', pos:'6/6H', apraz:''},
+];
+
+function setTab(t, el) {
+  currentTab = t;
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sec_presc').style.display = (t === 'ev') ? 'none' : 'block';
+  document.getElementById('sec_ev').style.display = (t === 'presc') ? 'none' : 'block';
+}
+
+function addMed() {
+  mc++;
+  const d = document.getElementById('med_list');
+  const div = document.createElement('div');
+  div.className = 'med-row'; div.id = 'mr' + mc;
+  div.innerHTML = `
+    <div class="field"><label>Medicamento</label><input placeholder="ex: Amoxicilina 500mg 01cp"></div>
+    <div class="field"><label>Via</label>
+      <select><option>VO</option><option>EV</option><option>IM</option><option>SC</option><option>INAL</option><option>SL</option></select>
+    </div>
+    <div class="field"><label>Posologia</label><input placeholder="ex: 8/8h"></div>
+    <div class="field"><label>Tipo</label>
+      <select><option value=""></option><option>SOS</option><option>ACM</option><option>Contínuo</option><option>Dose única</option></select>
+    </div>
+    <button class="rm-btn" onclick="document.getElementById('mr${mc}').remove()" title="Remover">×</button>`;
+  d.appendChild(div);
+}
+
+function v(id) { return (document.getElementById(id)||{}).value || ''; }
+
+function toast(msg, dur=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+async function gerar() {
+  const btn = document.getElementById('gen_btn');
+  btn.textContent = 'Gerando...'; btn.disabled = true;
+
+  const meds = [];
+  document.querySelectorAll('#med_list .med-row').forEach((row, i) => {
+    const ins = row.querySelectorAll('input, select');
+    const med = ins[0].value, via = ins[1].value, pos = ins[2].value, tipo = ins[3].value;
+    if (med.trim()) meds.push({item: String(i+1), med, via, pos: pos+(tipo?' '+tipo:''), apraz:''});
+  });
+
+  const fixos = [];
+  for (let i = 0; i < 17; i++) {
+    if (document.getElementById('f'+i)?.checked) fixos.push(FX[i]);
+  }
+
+  const payload = {
+    nome: v('nome') || '___________________________',
+    dn: v('dn') || '___/___/______',
+    hd: v('hd') || '',
+    data: v('data') ? v('data').split('-').reverse().join('/') : new Date().toLocaleDateString('pt-BR'),
+    dieta: v('dieta'),
+    sf: v('sf'),
+    medicamentos: meds,
+    fixos,
+    includePresc: currentTab !== 'ev',
+    includeEv: currentTab !== 'presc',
+    evolucao: {
+      dih: v('dih'),
+      hipoteses: v('ev_hd') || v('hd'),
+      admissao: v('admissao'),
+      comorbidades: v('comorbidades'),
+      antecedentes: v('antecedentes'),
+      atb_previo: v('atb'),
+      evolucao_medica: v('ev_med'),
+      exame_fisico: v('ef'),
+      conduta: v('conduta'),
+    }
+  };
+
+  try {
+    const resp = await fetch('/gerar', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+    if (!resp.ok) throw new Error('Erro no servidor');
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `prescricao_${(v('nome')||'paciente').replace(/\s+/g,'_').toLowerCase()}.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('PDF gerado com sucesso!');
+  } catch(e) {
+    toast('Erro ao gerar PDF: ' + e.message, 4000);
+  }
+
+  btn.textContent = '⬇ Gerar PDF'; btn.disabled = false;
+}
+
+function limpar() {
+  document.querySelectorAll('input:not([type=checkbox]), select, textarea').forEach(el => el.value = '');
+  for (let i = 0; i < 17; i++) {
+    const el = document.getElementById('f'+i);
+    if (el) el.checked = [0,1,2,4,14,15,16].includes(i);
+  }
+  document.getElementById('med_list').innerHTML = '';
+  mc = 0;
+  document.getElementById('data').valueAsDate = new Date();
+  toast('Formulário limpo.');
+}
+
+document.getElementById('data').valueAsDate = new Date();
+</script>
+</body>
+</html>
