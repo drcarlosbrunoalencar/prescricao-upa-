@@ -384,7 +384,7 @@ function imprimir(){
     const dieta=v('dieta'),sf=v('sf');
     html+=`<table class="pt"><thead><tr>
       <th style="width:5%">ITEM</th><th style="width:45%">MEDICAMENTO</th>
-      <th style="width:8%">VIA</th><th style="width:26%">POSOLOGIA</th><th style="width:16%">APRAZAMENTO</th>
+      <th style="width:8%">VIA</th><th style="width:26%">POSOLOGIA</th><th style="width:16%">OBSERVAÇÕES</th>
     </tr></thead><tbody>`;
     if(dieta) html+=`<tr><td><span></span></td><td><span>DIETA: ${dieta.toUpperCase()}</span></td><td><span></span></td><td><span></span></td><td><span></span></td></tr>`;
     if(sf) html+=`<tr><td><span></span></td><td><span>SF 0,9% ${sf.toUpperCase()}</span></td><td><span style="text-align:center;display:block">EV</span></td><td><span></span></td><td><span></span></td></tr>`;
